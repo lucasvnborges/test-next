@@ -26,6 +26,7 @@
       "@constants/*": ["src/constants/*"],
       "@layouts/*": ["src/layouts/*"],
       "@providers/*": ["src/providers/*"],
+      "@lib/*": ["src/lib/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
