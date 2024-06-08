@@ -14,7 +14,7 @@ type User = {
 type Product = {
   _id: string;
   name: string;
-  price: string;
+  price: number;
   quantity: number;
   purchased: boolean;
   creator: User;
