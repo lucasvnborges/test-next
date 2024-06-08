@@ -1,18 +1,19 @@
 "use client";
 
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { signIn, getProviders, useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button as AntdButton, Card } from "antd";
 import SkeletonButton from "antd/es/skeleton/Button";
 import AuthButton from "@components/atoms/AuthButton";
 
-function AuthCard() {
-  const CARD_WIDTH = 678;
+const CARD_WIDTH = 678;
 
-  const { data: session } = useSession();
+function AuthCard() {
   const router = useRouter();
+  const { data: session } = useSession();
+
   const [isLoading, setIsLoading] = useState(true);
   const [providers, setProviders] = useState(null);
 
@@ -20,20 +21,31 @@ function AuthCard() {
     initProviders();
   }, []);
 
-  const initProviders = async () => {
-    setIsLoading(true);
-    const res: any = await getProviders();
+  async function initProviders() {
+    try {
+      setIsLoading(true);
+      const res: any = await getProviders();
+      setProviders(res);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setTimeout(() => setIsLoading(false), 250);
+    }
+  }
 
-    setProviders(res);
-    setTimeout(() => setIsLoading(false), 1000);
-  };
+  // O uso da memoização abaixo refere-se à ação de logout e login de um novo cliente,
+  // onde ocorre a alteração na dependência 'session'.
+  const user_name = useMemo(
+    () => (session && session.user && session.user.name) || "default",
+    [session]
+  );
 
   if (session) {
     return (
       <Card style={{ width: CARD_WIDTH }}>
         <Container>
           <Label>
-            You are signed in as <b>{session?.user?.name}</b>.
+            Você está conectado como <b>{user_name}</b>.
           </Label>
 
           <ButtonGroup>
@@ -51,7 +63,7 @@ function AuthCard() {
               type="primary"
               onClick={() => router.push("/dashboard")}
             >
-              Go to Dashboard
+              Ir para dashboard
             </Button>
           </ButtonGroup>
         </Container>
@@ -75,9 +87,9 @@ function AuthCard() {
         {providers &&
           Object.values(providers).map((provider: any) => (
             <AuthButton
-              key={provider?.name}
-              providername={provider?.name}
-              text={`Continue with ${provider.name}`}
+              key={provider.name}
+              providername={provider.name}
+              text={`Fazer login com ${provider.name}`}
               onClick={() => {
                 signIn(provider.id, { callbackUrl: "/dashboard" });
               }}
