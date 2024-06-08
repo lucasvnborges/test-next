@@ -9,14 +9,6 @@ type Props = {
   url: string;
 };
 
-const Label = styled.label`
-  font-size: 13px;
-  margin-top: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  color: #292929;
-`;
-
 function IconCard({ text, iconPath, iconSize, url }: Props) {
   return (
     <a href={url} target={"_blank"}>
@@ -34,5 +26,13 @@ function IconCard({ text, iconPath, iconSize, url }: Props) {
     </a>
   );
 }
+
+const Label = styled.label`
+  font-size: 13px;
+  margin-top: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #292929;
+`;
 
 export default IconCard;
