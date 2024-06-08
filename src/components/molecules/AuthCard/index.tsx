@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { signIn, getProviders, useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button as AntdButton, Card } from "antd";
-import Skeleton from "antd/es/skeleton/Button";
+import SkeletonButton from "antd/es/skeleton/Button";
 import AuthButton from "@components/atoms/AuthButton";
 
 function AuthCard() {
@@ -54,7 +54,7 @@ function AuthCard() {
     return (
       <Card style={{ width: CARD_WIDTH }}>
         <Container>
-          <SkeletonButton active={true} block={true} />
+          <SkeletonButton active={true} block={true} style={{ height: 42 }} />
         </Container>
       </Card>
     );
@@ -85,10 +85,6 @@ const Container = styled.div`
 
 const Button = styled(AntdButton)`
   margin-bottom: 12px;
-`;
-
-const SkeletonButton = styled(Skeleton)`
-padding: 8px;
 `;
 
 const Label = styled.label`
