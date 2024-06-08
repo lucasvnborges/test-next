@@ -35,16 +35,25 @@ function AuthCard() {
           <Label>
             You are signed in as <b>{session?.user?.name}</b>.
           </Label>
-          <Button
-            block
-            type="primary"
-            onClick={() => router.push("/dashboard")}
-          >
-            Go to Dashboard
-          </Button>
-          <Button type="dashed" onClick={() => signOut()} block danger>
-            Log out
-          </Button>
+
+          <ButtonGroup>
+            <Button
+              block
+              danger
+              type="dashed"
+              onClick={() => signOut()}
+              style={{ marginRight: 12 }}
+            >
+              Log out
+            </Button>
+            <Button
+              block
+              type="primary"
+              onClick={() => router.push("/dashboard")}
+            >
+              Go to Dashboard
+            </Button>
+          </ButtonGroup>
         </Container>
       </Card>
     );
@@ -87,11 +96,15 @@ const Button = styled(AntdButton)`
   margin-bottom: 12px;
 `;
 
-const Label = styled.label`
-  margin-top: 0;
-  margin-bottom: 12px;
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Label = styled.div`
   font-size: 14px;
   text-align: center;
+  margin-bottom: 12px;
 `;
 
 export default AuthCard;
