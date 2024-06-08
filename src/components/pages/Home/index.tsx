@@ -12,7 +12,7 @@ export default function Home() {
   const renderHeader = () => (
     <>
       <Image src="/logos/next-icon.svg" alt="Next logo" width={100} height={50} />
-      <Heading>Grocery List - Teste Next.js</Heading>
+      <Heading>Lista de compras - Teste Next.js</Heading>
       <SubHeading>
         Web app para cadastro de produtos em uma lista de compras
       </SubHeading>
