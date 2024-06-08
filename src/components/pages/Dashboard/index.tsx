@@ -1,16 +1,25 @@
 "use client";
 
 import styled from "styled-components";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FloatButton as AntdFloatButton } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import CustomAvatar from "@components/atoms/CustomAvatar";
+import CreateProductModal from "@/components/molecules/CreateProductModal";
 
 export default function Dashboard() {
   const router = useRouter();
   const { data: session } = useSession();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsAddProductModalOpen(true), 500)
+  }, [])
 
   const profile_image = useMemo(
     () => (session && session.user && session.user.image) || "default",
@@ -31,6 +40,13 @@ export default function Dashboard() {
       <CustomAvatar size={60} image={profile_image} />
       <Heading>Oi, {user_name.split(" ")[0]} 😊📝</Heading>
       <SubHeading>Planeje e acompanhe suas compras de forma simples</SubHeading>
+
+      <CreateProductModal
+        products={[]}
+        setProducts={setProducts}
+        isOpen={isAddProductModalOpen}
+        setIsOpen={setIsAddProductModalOpen}
+      />
 
       <FloatButton onClick={handleGoBack} icon={<ArrowLeftOutlined />} />
     </Container>
