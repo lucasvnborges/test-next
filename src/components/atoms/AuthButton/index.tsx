@@ -24,17 +24,16 @@ function AuthButton(props: Props) {
 }
 
 const Container = styled.button`
-  background: $secondary-surface-color;
+  background: #fff;
   border: none;
   width: 100%;
   padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid $border-color;
+  border: 1px solid #e4e4e4a0;
   cursor: pointer;
-  border-radius: $border-radius;
-  margin: 10px 0px;
+  border-radius: 6px;
   transition: opacity 0.5s;
 
   &:hover {
