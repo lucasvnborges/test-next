@@ -11,9 +11,26 @@ const getAllProducts = async () => {
   });
 };
 
+const updateProductStatus = async (productId: string, isComplete: boolean) => {
+  return await fetch(
+    `/api/product?productId=${productId}&isComplete=${isComplete}`,
+    {
+      method: "PUT",
+    }
+  );
+};
+
+const deleteProduct = async (productId: string) => {
+  return await fetch(`/api/product?productId=${productId}`, {
+    method: "DELETE",
+  });
+};
+
 const ProductService = {
   createProduct,
   getAllProducts,
+  updateProductStatus,
+  deleteProduct,
 };
 
 export default ProductService;
