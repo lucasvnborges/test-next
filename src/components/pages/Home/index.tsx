@@ -11,7 +11,12 @@ import TECH_STACK_INFO from "@constants/TechStackInfo";
 export default function Home() {
   const renderHeader = () => (
     <>
-      <Image src="/logos/next-icon.svg" alt="Next logo" width={100} height={50} />
+      <Image
+        src="/logos/next-icon.svg"
+        alt="Next logo"
+        width={100}
+        height={50}
+      />
       <Heading>Lista de compras - Teste Next.js</Heading>
       <SubHeading>
         Web app para cadastro de produtos em uma lista de compras
@@ -33,12 +38,12 @@ export default function Home() {
     </Row>
   );
 
-  const renderAuthCard = () => <AuthCard />
+  const renderAuthCard = () => <AuthCard />;
 
   const renderFooter = () => (
     <div>
       <FooterText>
-        Aplicação criada em 7 de Junho de 2024 como teste para a empresa Vylex.
+        Aplicação criada como resolução de desafio para a empresa Vylex.
       </FooterText>
       <CustomAvatar
         mainText="Lucas Borges"
