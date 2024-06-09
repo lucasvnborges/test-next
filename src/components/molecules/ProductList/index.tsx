@@ -1,13 +1,14 @@
 "use client";
 
 import styled from "styled-components";
-import { Button, Card, List, Skeleton } from "antd";
+import { Button, Card, List, Skeleton, message } from "antd";
 import {
   PlusOutlined,
   DeleteOutlined,
   UndoOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
+import ProductService from "@/services/product.service";
 
 type Props = {
   products: Product[];
@@ -24,14 +25,45 @@ export default function ProductList({
   setIsAddProductModalOpen,
   isLoading,
 }: Props) {
+  const [messageApi, contextToaster] = message.useMessage();
+
+  const updateProductStatus = async (productId: string, purchased: boolean) => {
+    const response = await ProductService.updateProductStatus(
+      productId,
+      !purchased
+    );
+    const updatedProduct: Product = await response.json();
+    const updatedProducts = products.map((product: Product) =>
+      product._id.toString() === updatedProduct._id.toString()
+        ? updatedProduct
+        : product
+    );
+
+    setProducts(updatedProducts);
+  };
+
+  const deleteProduct = async (productId: string) => {
+    const response = await ProductService.deleteProduct(productId);
+    const deletedProductId = await response.text();
+    const filteredProducts = products.filter((p) => p._id !== deletedProductId);
+
+    messageApi.success("Produto excluído");
+    setProducts(filteredProducts);
+  };
+
   const listItemActions = (product: Product) => [
-    <Button danger key="delete" type="dashed" onClick={() => console.log}>
+    <Button
+      danger
+      key="delete"
+      type="dashed"
+      onClick={() => deleteProduct(product._id)}
+    >
       <DeleteOutlined />
     </Button>,
     <Button
       key="done"
       type={product.purchased ? "dashed" : "dashed"}
-      onClick={() => console.log}
+      onClick={() => updateProductStatus(product._id, product.purchased)}
     >
       {product.purchased ? <UndoOutlined /> : <CheckOutlined />}
     </Button>,
@@ -39,6 +71,7 @@ export default function ProductList({
 
   return (
     <section>
+      {contextToaster}
       <Card
         title="Lista de compras"
         extra={
