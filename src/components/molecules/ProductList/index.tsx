@@ -1,7 +1,13 @@
 "use client";
 
+import styled from "styled-components";
 import { Button, Card, List, Skeleton } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  UndoOutlined,
+  CheckOutlined,
+} from "@ant-design/icons";
 
 type Props = {
   products: Product[];
@@ -18,6 +24,19 @@ export default function ProductList({
   setIsAddProductModalOpen,
   isLoading,
 }: Props) {
+  const listItemActions = (product: Product) => [
+    <Button danger key="delete" type="dashed" onClick={() => console.log}>
+      <DeleteOutlined />
+    </Button>,
+    <Button
+      key="done"
+      type={product.purchased ? "dashed" : "dashed"}
+      onClick={() => console.log}
+    >
+      {product.purchased ? <UndoOutlined /> : <CheckOutlined />}
+    </Button>,
+  ];
+
   return (
     <section>
       <Card
@@ -26,7 +45,6 @@ export default function ProductList({
           <Button
             size="small"
             type="primary"
-            shape="circle"
             onClick={() => setIsAddProductModalOpen(true)}
           >
             <PlusOutlined />
@@ -34,20 +52,33 @@ export default function ProductList({
         }
         style={{ width: CARD_WIDTH }}
       >
-        <List
-          loadMore={null}
-          loading={isLoading}
-          dataSource={products}
-          itemLayout="horizontal"
-          renderItem={(product: Product) => (
-            <List.Item>
-              <Skeleton title={false} loading={isLoading} active>
-                <List.Item.Meta description={<span>{product.name}</span>} />
-              </Skeleton>
-            </List.Item>
-          )}
-        />
+        <ListWrapper>
+          <List
+            loadMore={null}
+            loading={isLoading}
+            dataSource={products}
+            itemLayout="horizontal"
+            renderItem={(product: Product) => (
+              <List.Item actions={listItemActions(product)}>
+                <Skeleton title={false} loading={isLoading} active>
+                  <List.Item.Meta
+                    description={
+                      <span>
+                        {product.quantity}x {product.name}
+                      </span>
+                    }
+                  />
+                </Skeleton>
+              </List.Item>
+            )}
+          />
+        </ListWrapper>
       </Card>
     </section>
   );
 }
+
+const ListWrapper = styled.div`
+  height: 40vh;
+  overflow-y: auto;
+`;
