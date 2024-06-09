@@ -5,8 +5,15 @@ const createProduct = async (name: string, price: number, quantity: number) => {
   });
 };
 
+const getAllProducts = async () => {
+  return await fetch("/api/product", {
+    method: "GET",
+  });
+};
+
 const ProductService = {
   createProduct,
+  getAllProducts,
 };
 
 export default ProductService;
