@@ -10,6 +10,7 @@ import CustomAvatar from "@components/atoms/CustomAvatar";
 import CreateProductModal from "@/components/molecules/CreateProductModal";
 import ProductService from "@/services/product.service";
 import ProductList from "@/components/molecules/ProductList";
+import PurchasedProgress from "@/components/molecules/PurchasedProgress";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -56,6 +57,8 @@ export default function Dashboard() {
       <CustomAvatar size={60} image={profile_image} />
       <Heading>Oi, {user_name.split(" ")[0]} 😊📝</Heading>
       <SubHeading>Planeje e acompanhe suas compras de forma simples</SubHeading>
+
+      <PurchasedProgress products={products} />
 
       <ProductList
         products={products}
