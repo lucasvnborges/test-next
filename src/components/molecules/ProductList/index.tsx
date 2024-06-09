@@ -96,8 +96,16 @@ export default function ProductList({
                 <Skeleton title={false} loading={isLoading} active>
                   <List.Item.Meta
                     description={
-                      <span>
-                        {product.quantity}x {product.name}
+                      <span
+                        style={{
+                          opacity: product.purchased ? 0.75 : 1,
+                          textDecoration: product.purchased
+                            ? "line-through"
+                            : "none",
+                        }}
+                      >
+                        <small>{product.quantity}x</small> R${product.price}
+                        <b> - {product.name}</b>
                       </span>
                     }
                   />
