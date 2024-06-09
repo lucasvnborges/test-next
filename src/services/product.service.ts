@@ -11,9 +11,9 @@ const getAllProducts = async () => {
   });
 };
 
-const updateProductStatus = async (productId: string, isComplete: boolean) => {
+const updateProductStatus = async (productId: string, purchased: boolean) => {
   return await fetch(
-    `/api/product?productId=${productId}&isComplete=${isComplete}`,
+    `/api/product?productId=${productId}&purchased=${purchased}`,
     {
       method: "PUT",
     }

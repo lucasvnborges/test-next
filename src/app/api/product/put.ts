@@ -5,10 +5,10 @@ export const PUT = async (request: any) => {
   try {
     await connectToDB();
     const productId = request.nextUrl.searchParams.get("productId");
-    const isComplete = request.nextUrl.searchParams.get("isComplete");
+    const purchased = request.nextUrl.searchParams.get("purchased");
     const updatedProduct = await Product.findOneAndUpdate(
       { _id: productId },
-      { $set: { isComplete } },
+      { $set: { purchased } },
       { new: true }
     );
 
