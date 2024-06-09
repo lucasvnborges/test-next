@@ -8,6 +8,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import CustomAvatar from "@components/atoms/CustomAvatar";
 import CreateProductModal from "@/components/molecules/CreateProductModal";
+import ProductService from "@/services/product.service";
+import ProductList from "@/components/molecules/ProductList";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -18,8 +20,22 @@ export default function Dashboard() {
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsAddProductModalOpen(true), 500)
-  }, [])
+    handleGetAllProducts();
+  }, []);
+
+  const handleGetAllProducts = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await ProductService.getAllProducts();
+      const products: Product = await response.json();
+      setProducts(Array.isArray(products) ? products : []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const profile_image = useMemo(
     () => (session && session.user && session.user.image) || "default",
@@ -41,8 +57,15 @@ export default function Dashboard() {
       <Heading>Oi, {user_name.split(" ")[0]} 😊📝</Heading>
       <SubHeading>Planeje e acompanhe suas compras de forma simples</SubHeading>
 
+      <ProductList
+        products={products}
+        isLoading={isLoading}
+        setProducts={setProducts}
+        setIsAddProductModalOpen={setIsAddProductModalOpen}
+      />
+
       <CreateProductModal
-        products={[]}
+        products={products}
         setProducts={setProducts}
         isOpen={isAddProductModalOpen}
         setIsOpen={setIsAddProductModalOpen}
