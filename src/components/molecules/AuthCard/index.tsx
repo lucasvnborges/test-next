@@ -8,8 +8,6 @@ import { Button as AntdButton, Card } from "antd";
 import SkeletonButton from "antd/es/skeleton/Button";
 import AuthButton from "@components/atoms/AuthButton";
 
-const CARD_WIDTH = 678;
-
 function AuthCard() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -42,7 +40,7 @@ function AuthCard() {
 
   if (session) {
     return (
-      <Card style={{ width: CARD_WIDTH }}>
+      <Card>
         <Container>
           <Label>
             Você está conectado como <b>{user_name}</b>.
@@ -73,7 +71,7 @@ function AuthCard() {
 
   if (isLoading) {
     return (
-      <Card style={{ width: CARD_WIDTH }}>
+      <Card>
         <Container>
           <SkeletonButton active={true} block={true} style={{ height: 42 }} />
         </Container>
@@ -82,7 +80,7 @@ function AuthCard() {
   }
 
   return (
-    <Card style={{ width: CARD_WIDTH }}>
+    <Card>
       <Container>
         {providers &&
           Object.values(providers).map((provider: any) => (
@@ -101,7 +99,8 @@ function AuthCard() {
 }
 
 const Container = styled.div`
-  padding: 0 120px;
+  margin: 0 auto;
+  max-width: 300px;
 `;
 
 const Button = styled(AntdButton)`
