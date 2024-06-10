@@ -89,8 +89,8 @@ export default function ProductList({
           <List
             loadMore={null}
             loading={isLoading}
-            dataSource={products}
             itemLayout="horizontal"
+            dataSource={products.toReversed()}
             renderItem={(product: Product) => (
               <List.Item actions={listItemActions(product)}>
                 <Skeleton title={false} loading={isLoading} active>
