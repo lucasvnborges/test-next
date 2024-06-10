@@ -88,6 +88,10 @@ export default function ProductList({
             loading={isLoading}
             itemLayout="horizontal"
             dataSource={products.toReversed()}
+            locale={{
+              emptyText:
+                "Toque no ícone + para adicionar produtos à sua lista 📝",
+            }}
             renderItem={(product: Product) => (
               <List.Item actions={listItemActions(product)}>
                 <Skeleton title={false} loading={isLoading} active>
