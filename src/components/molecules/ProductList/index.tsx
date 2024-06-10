@@ -99,6 +99,7 @@ export default function ProductList({
                     description={
                       <span
                         style={{
+                          color: '#333',
                           opacity: product.purchased ? 0.75 : 1,
                           textDecoration: product.purchased
                             ? "line-through"
