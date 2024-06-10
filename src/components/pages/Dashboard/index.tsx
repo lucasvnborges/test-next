@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import { useEffect, useMemo, useState } from "react";
-import { FloatButton as AntdFloatButton } from "antd";
+import { FloatButton as AntdFloatButton, Col, Row } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -53,49 +53,47 @@ export default function Dashboard() {
   }
 
   return (
-    <Container>
-      <CustomAvatar size={60} image={profile_image} />
-      <Heading>Oi, {user_name.split(" ")[0]} 😊📝</Heading>
-      <SubHeading>Planeje e acompanhe suas compras de forma simples</SubHeading>
+    <Row>
+      <Col span={24} md={12} style={{ margin: "0 auto" }}>
+        <CustomAvatar size={60} image={profile_image} />
+        <Heading>Oi, {user_name.split(" ")[0]} 😊📝</Heading>
+        <SubHeading>
+          Planeje e acompanhe suas compras de forma simples
+        </SubHeading>
 
-      <PurchasedProgress products={products} />
+        <PurchasedProgress products={products} />
 
-      <ProductList
-        products={products}
-        isLoading={isLoading}
-        setProducts={setProducts}
-        setIsAddProductModalOpen={setIsAddProductModalOpen}
-      />
+        <ProductList
+          products={products}
+          isLoading={isLoading}
+          setProducts={setProducts}
+          setIsAddProductModalOpen={setIsAddProductModalOpen}
+        />
 
-      <CreateProductModal
-        products={products}
-        setProducts={setProducts}
-        isOpen={isAddProductModalOpen}
-        setIsOpen={setIsAddProductModalOpen}
-      />
+        <CreateProductModal
+          products={products}
+          setProducts={setProducts}
+          isOpen={isAddProductModalOpen}
+          setIsOpen={setIsAddProductModalOpen}
+        />
 
-      <FloatButton onClick={handleGoBack} icon={<ArrowLeftOutlined />} />
-    </Container>
+        <FloatButton onClick={handleGoBack} icon={<ArrowLeftOutlined />} />
+      </Col>
+    </Row>
   );
 }
-
-const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - 25px);
-`;
 
 const Heading = styled.h1`
   font-size: 24px;
   margin-bottom: 2px;
+  text-align: center;
 `;
 
 const SubHeading = styled.h2`
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 40px;
+  text-align: center;
 `;
 
 const FloatButton = styled(AntdFloatButton)`

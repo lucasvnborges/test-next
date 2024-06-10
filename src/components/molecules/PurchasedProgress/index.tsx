@@ -4,8 +4,6 @@ type Props = {
   products: Product[];
 };
 
-const CARD_WIDTH = 670;
-
 export default function PurchasedProgress({ products }: Props) {
   const completedPercentage = () => {
     if (!products?.length) return 0;
@@ -18,7 +16,7 @@ export default function PurchasedProgress({ products }: Props) {
   };
 
   return (
-    <Card style={{ width: CARD_WIDTH, marginBottom: 16 }}>
+    <Card style={{ marginBottom: 16 }}>
       <Progress percent={completedPercentage()} />
     </Card>
   );

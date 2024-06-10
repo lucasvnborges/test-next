@@ -17,8 +17,6 @@ type Props = {
   isLoading: boolean;
 };
 
-const CARD_WIDTH = 670;
-
 export default function ProductList({
   products,
   setProducts,
@@ -70,7 +68,7 @@ export default function ProductList({
   ];
 
   return (
-    <section>
+    <>
       {contextToaster}
       <Card
         title="Lista de compras"
@@ -83,7 +81,6 @@ export default function ProductList({
             <PlusOutlined />
           </Button>
         }
-        style={{ width: CARD_WIDTH }}
       >
         <ListWrapper>
           <List
@@ -115,7 +112,7 @@ export default function ProductList({
           />
         </ListWrapper>
       </Card>
-    </section>
+    </>
   );
 }
 
