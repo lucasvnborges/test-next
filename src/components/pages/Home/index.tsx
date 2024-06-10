@@ -17,7 +17,7 @@ export default function Home() {
         width={100}
         height={50}
       />
-      <Heading>Lista de compras - Teste Next.js</Heading>
+      <Heading>Lista de compras - Desafio Next.js</Heading>
       <SubHeading>
         Web app para cadastro de produtos em uma lista de compras
       </SubHeading>
