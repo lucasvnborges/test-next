@@ -15,7 +15,8 @@ Web app FullStack para controle de lista de compras
 - Styled Components
 - MongoDB
 - Mongoose
-- Jest e Testing Library
+- Jest
+- Testing Library
 - Eslint
 
 ## Instalação dos pacotes
